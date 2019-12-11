@@ -1,0 +1,57 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    电话溥管理系统
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">电话溥系统</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
+        <li><a href="#">其他</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          {% if current_user.is_authenticated %}
+              <li><a>{{ current_user.Username }}欢迎您！</a></li>
+              <li><a href="{{ url_for('main.PasswordChangeView')}}">修改密码</a> </li>
+              <li><a href="{{ url_for('main.EmailChangeView')}}">修改邮箱</a> </li>
+              <li><a href="{{ url_for('main.logout') }}">注销</a></li>
+          {% else %}
+                <li><a href="{{ url_for('main.LoginView') }}">登录</a></li>
+                <li><a href="{{ url_for('main.register') }}">注册</a></li>
+                <li><a href="{{ url_for('main.ResetPasswordView')}}">重置密码</a> </li>
+          {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+    <div class="container">
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+        {{ message }}
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="/static/js/main.js"></script>
+{% endblock %}

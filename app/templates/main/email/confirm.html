@@ -1,0 +1,5 @@
+<p>{{ user.Username }}</p>
+<p>欢迎您注册我们的网站!</p>
+<p>请点击如下链接，以激活您的账号：</p>
+<a href="{{ url_for('main.confirm', token=token, _external=True) }}">点击激活</a>
+<p>注意：请勿回复此邮件</p>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{%  block content %}
+    <div>
+        按照电话溥的类型：
+        <select id="selectid">
+            <option value="-1">全部</option>
+            {% for i in typetest %}
+                <option value="{{ i.id }}">{{ i.name }}</option>
+            {% endfor %}
+        </select>
+        姓名
+        <input placeholder="模糊姓名。。"  id="getname">
+        <button type="button" class="btn btn-danger" id="btuclick">搜索</button>
+    </div>
+
+    <button type="button" class="btn btn-success"><a href="{{ url_for('main.telbook') }}">新增联系人</a></button>
+    <button type="button" class="btn btn-info"><a href="{{ url_for('main.TypeView') }}">新增类别</a></button>
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <td>姓名</td>
+            <td>电话</td>
+            <td>类型</td>
+            <td>操作</td>
+        </tr>
+    </thead>
+    <tbody id="tables">
+        {% for i in tel_book %}
+            <tr>
+                <td>{{ i.name }}</td>
+                <td>{{ i.Tel }}</td>
+                <td>{{ i.getname() }}</td>
+                <td><button type="button" class="btn btn-danger"><a href="/delete/{{ i.id }}/">删除</a></button><button type="button" class="btn btn-primary"><a href="/telbook/?id={{ i.id }}">修改</a></button></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
